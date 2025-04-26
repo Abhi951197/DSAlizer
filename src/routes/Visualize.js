@@ -1,178 +1,4 @@
-// import './Visualize.css'
-// import React, { Component } from "react";
-// import { motion } from "framer-motion";
-// import selectionSort from "../algorithms/SelectionSort";
-// import mergeSort from "../algorithms/MergeSort";
-// import quickSort from "../algorithms/QuickSort";
-// import bubbleSort from "../algorithms/BubbleSort";
-// import insertionSort from "../algorithms/InsertionSort";
-// import heapSort from "../algorithms/HeapSort";
-// import { NavLink } from "react-router-dom";
-// const springAnim = {
-//     type: "spring",
-//     damping: 20,
-//     stiffness: 300
-// };
-// class Visualize extends Component{
-//     constructor(){
-//         super();
-//         this.state={
-//             arr:[],
-//             method:localStorage.getItem("selectedAlgorithm") || "Algorithms",
-//             length:0,
-//             compare:{
-//                 i:null,
-//                 j:null
-//             },
-//             sorted:[],
-//             speed:600
-//         }
 
-//     }
-//     createArray=(e=Math.floor(window.innerWidth/50)/2)=>{
-//         let arr=[];
-//         for(let i=0;i<e;i++){
-//             arr.push({
-//                 value:Math.floor(Math.random() * ((window.innerHeight/4)-30+1))+30,
-//                 id:"id-"+i
-//             })
-//         }
-//         this.setState({
-//             arr:arr,
-//             length:e,
-//             sorted:[],
-//             compare:{
-
-//             }
-//         })
-//     }
-//     changeArray=(e)=>{
-//         this.createArray(e.target.value)
-//     }
-//     componentDidMount(){
-//         this.createArray();
-//         window.addEventListener("resize",(e)=>{
-//             this.createArray();
-//         })
-//     }
-//     randomize=()=>{
-//         this.createArray(this.state.length)
-//     }
-//     sortFunc=(e)=>{
-//         e.preventDefault();
-//         var arr=this.state.arr;
-//         let length=this.state.arr.length;
-//         var results=[]
-//         document.getElementById('error').style="display:none";
-//         if(this.state.method=="Algorithms"){
-//             document.getElementById('error').style="display:block";
-//         }
-//         else{
-//             if(this.state.method=="Bubble Sort")
-//                 results=bubbleSort(arr,length);
-//             else if(this.state.method=="Selection Sort")
-//                 results=selectionSort(arr,length);
-//             else if(this.state.method=="Merge Sort")
-//                 results=mergeSort(arr,length);
-//             else if(this.state.method=="Quick Sort")
-//                 results=quickSort(arr,length);
-//             else if(this.state.method=="Insertion Sort")
-//                 results=insertionSort(arr,length);
-//             else if(this.state.method=="Heap Sort")
-//                 results=heapSort(arr,length);
-//             for(let i=0;i<results.length;i++){
-//                 setTimeout(()=>{
-//                     this.setState({
-//                         arr:results[i]
-//                     })
-//                 },this.state.speed*i)
-//             }
-//         }
-//     }
-
-//     changeSpeed=(e)=>{
-//         this.setState({
-//             speed:1100-e.target.value
-//         })
-//     }
-      
-//     render(){
-//         return(
-//             <>
-//             <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"></link>
-//             <div>
-//                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
-//                     <a className="navbar-brand" href="/">Home</a>
-//                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-//                         <span className="navbar-toggler-icon"></span>
-//                     </button>
-
-//                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-//                         <ul className="navbar-nav mr-auto">
-//                         <li className="nav-item ">
-//                             <a className="nav-link" href="#" onClick={this.randomize}>Randomize<span className="sr-only">(current)</span></a>
-//                         </li>
-//                         <li className="nav-item dropdown">
-//                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-//                             {this.state.method}
-//                             </a>
-//                             <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-//                                 <a className="dropdown-item" href="#" onClick={()=>this.setState({method:"Bubble Sort"})}>Bubble Sort</a>
-//                                 <a className="dropdown-item" href="#" onClick={()=>this.setState({method:"Quick Sort"})}>Quick Sort</a> 
-//                                 <a className="dropdown-item" href="#" onClick={()=>this.setState({method:"Merge Sort"})}>Merge Sort</a>
-//                                 <a className="dropdown-item" href="#" onClick={()=>this.setState({method:"Insertion Sort"})}>Insertion Sort</a>
-//                                 <a className="dropdown-item" href="#" onClick={()=>this.setState({method:"Selection Sort"})}>Selection Sort</a>
-//                                 <a className="dropdown-item" href="#" onClick={()=>this.setState({method:"Heap Sort"})}>Heap Sort</a> 
-//                             </div>
-//                         </li>
-//                         <li className="nav-item dropdown">
-//                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-//                             Controls
-//                             </a>
-//                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-//                                 <li className="ml-3 nav-item">
-//                                     <input onChange={this.changeArray} type="range" min="2" max={Math.floor(window.screen.width/50)} defaultValue={Math.floor((window.screen.width/50)/2)} id="changeSize" />
-//                                     <a className="nav-link">Increase Array Size</a>
-//                                 </li>
-//                                 <li className="ml-3 nav-item">
-//                                     <input onChange={this.changeSpeed} type="range" min="100" max={1000} defaultValue={500} id="changeSize"/>
-//                                     <a className="nav-link">Increase Speed</a>
-//                                 </li>
-//                             </div>
-//                         </li>
-        
-//                         <div id="error" className="alert alert-danger" style={{marginLeft:"10px",display:"none"}} role="alert">
-//                             Select an algorithm first!
-//                         </div>
-//                         </ul>
-//                         <form className="form-inline my-2 my-lg-0">
-//                         <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.sortFunc}>Sort</button>
-//                         </form>
-//                     </div>
-                    
-//                     </nav>
-//                 <div className="bars" id="bars" style={{margin:"20px"}}>
-//                     {
-//                     (this.state.arr.map((element,index) =>
-//                     <motion.div
-//                         key={element.id}
-//                         layout transition={springAnim}
-//                         className={`bar ${element.style}`}
-//                         id={element.id}
-//                         style={{height:element.value*3,order:index}}
-//                     >
-                    
-//                     {element.value}
-//                     </motion.div>
-                        
-//                     ))}
-//                 </div>
-//             </div>
-//             </>
-//         )
-//     }
-// }
-// export default Visualize;
 
 import './Visualize.css';
 import React, { Component } from 'react';
@@ -197,14 +23,14 @@ class Visualize extends Component {
       arr: [],
       method: localStorage.getItem('selectedAlgorithm') || 'Algorithms',
       length: 0,
-      swapCount: 0,   // Track number of swaps
-      passCount: 0,   // Track number of passes
+      swapCount: 0,
+      passCount: 0,
       speed: 600,
       isSorting: false,
       currentInterval: null,
       currentStep: 0,
       results: [],
-      arraySizeInput: Math.floor(window.innerWidth / 50 / 2), // Default value for array size
+      arraySizeInput: Math.floor(window.innerWidth / 50 / 2),
     };
   }
 
@@ -212,14 +38,14 @@ class Visualize extends Component {
     let arr = [];
     for (let i = 0; i < size; i++) {
       arr.push({
-        value: Math.floor(Math.random() * (170 - 30 + 1)) + 30, // Max value is set to 170
+        value: Math.floor(Math.random() * (170 - 30 + 1)) + 30,
         id: 'id-' + i,
       });
     }
     this.setState({
       arr: arr,
       length: size,
-      swapCount: 0,  // Reset counts when array is created
+      swapCount: 0,
       passCount: 0,
       isSorting: false,
       currentStep: 0,
@@ -245,7 +71,6 @@ class Visualize extends Component {
     this.createArray(this.state.length);
   };
 
-  
   sortFunc = (e) => {
     e.preventDefault();
     const { arr, length, method } = this.state;
@@ -266,7 +91,6 @@ class Visualize extends Component {
       else if (method === 'Insertion Sort') sortedResult = insertionSort(arr, length);
       else if (method === 'Heap Sort') sortedResult = heapSort(arr, length);
 
-      // Extract the results, swap count, and pass count
       results = sortedResult.result;
       swapCount = sortedResult.swapCount;
       passCount = sortedResult.passCount;
@@ -288,29 +112,27 @@ class Visualize extends Component {
 
   runSortingAnimation = () => {
     const { results, speed } = this.state;
-  
+
     const intervalId = setInterval(() => {
       this.setState((prevState) => {
         if (prevState.currentStep < results.length) {
           const { arr: newArr, swapCount, passCount } = results[prevState.currentStep];
-  
-          // Return new state
+
           return {
             arr: newArr,
             currentStep: prevState.currentStep + 1,
-            swapCount,  // Dynamically update swap count
-            passCount,   // Dynamically update pass count
+            swapCount,
+            passCount,
           };
         } else {
           clearInterval(intervalId);
-          return { isSorting: false, currentStep: 0 }; // Reset after finishing
+          return { isSorting: false, currentStep: 0 };
         }
       });
     }, speed);
-  
+
     this.setState({ currentInterval: intervalId });
   };
-  
 
   changeSpeed = (e) => {
     this.setState({
@@ -427,7 +249,7 @@ class Visualize extends Component {
 
             <b>Applications of Selection Sort:</b><br/>
             - Ideal for systems with limited memory due to its in-place sorting capability.<br/>
-            - Used in simple embedded systems where resource availability is limited and simplicity is important.<br/><br/>
+            - Used in simple embedded systems where resource availability is limited and simplicity is important.<br/>
             - Perfect for teaching fundamental sorting mechanisms and algorithm design.<br/><br/>
 
        
@@ -482,7 +304,7 @@ class Visualize extends Component {
 
               <b>Applications of Selection Sort:</b><br/>
               - Inversion counting<br/>
-              - It is a preferred algorithm for sorting Linked lists.<br/><br/>
+              - It is a preferred algorithm for sorting Linked lists.<br/>
               - It can be easily parallelized as we can independently sort subarrays and then merge.<br/><br/>
 
               
@@ -545,6 +367,29 @@ class Visualize extends Component {
       case 'Insertion Sort':
         return (
           <>
+          <br/><b>Time Complexity:</b>
+          <table className="tc">
+        <thead>
+            <tr>
+                <th>Case</th>
+                <th>Time Complexity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Best Case</td>
+                <td>O(n)</td>
+            </tr>
+            <tr>
+                <td>Average Case</td>
+                <td>O(n<sup>2</sup>)</td>
+            </tr>
+            <tr>
+                <td>Worst Case</td>
+                <td>O(n<sup>2</sup>)</td>
+            </tr>
+        </tbody>
+    </table><br/>
             Insertion sort is a simple sorting algorithm that works by iteratively inserting each element of an unsorted list into its correct position in a sorted portion of the list. 
             It is a stable sorting algorithm, meaning that elements with equal values maintain their relative order in the sorted output.<br/><br/>
 
@@ -570,29 +415,6 @@ class Visualize extends Component {
               - Can be useful when array is already almost sorted (very few inversions)<br/>
               - Since Insertion sort is suitable for small sized arrays, it is used in Hybrid Sorting algorithms along with other efficient algorithms like Quick Sort and Merge Sort. When the subarray size becomes small, we switch to insertion sort in these recursive algorithms. For example IntroSort and TimSort use insertions sort.<br/><br/>
             
-            <b>Time Complexity:</b>
-            <table className="tc">
-        <thead>
-            <tr>
-                <th>Case</th>
-                <th>Time Complexity</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Best Case</td>
-                <td>O(n)</td>
-            </tr>
-            <tr>
-                <td>Average Case</td>
-                <td>O(n<sup>2</sup>)</td>
-            </tr>
-            <tr>
-                <td>Worst Case</td>
-                <td>O(n<sup>2</sup>)</td>
-            </tr>
-        </tbody>
-    </table>
           </>
         );
       case 'Heap Sort':
@@ -653,6 +475,7 @@ class Visualize extends Component {
         return 'Please select an algorithm to learn more about how it works.';
     }
   };
+
   render() {
     return (
       <>
@@ -788,6 +611,13 @@ class Visualize extends Component {
                   Select an algorithm first!
                 </div>
               </ul>
+              <button
+  className="btn mr-2"  // Increased margin-right for more space
+  onClick={() => window.location.href = '/user'}
+  style={{ backgroundColor: '#d9534f', color: 'white' }}  // Nicer red shade
+>
+  Try Custom Input
+</button>
               <form className="form-inline my-2 my-lg-0">
                 <button
                   className="btn btn-outline-success my-2 my-sm-0"
@@ -821,19 +651,14 @@ class Visualize extends Component {
               <div>Sorted Successfully!</div>
             )}
           </div>
-          <div className="info" style={{ backgroundColor: '#000000f6', padding: '10px', borderRadius: '0px',display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-  <p style={{ color: 'white', margin: '5px 0' }}>No. of Swaps: {this.state.swapCount}</p>
-  <p style={{ color: 'white', margin: '5px 30px' }}>No. of Passes: {this.state.passCount}</p>
-</div>
-
-        </div>
-         {/* Display swap and pass counts */}
-          
-
-        {/* Theory Section */}
-        <div className="theory-section">
+          <div className="info" style={{ backgroundColor: '#000000f6', padding: '10px', borderRadius: '0px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <p style={{ color: 'white', margin: '5px 0' }}>No. of Swaps: {this.state.swapCount}</p>
+            <p style={{ color: 'white', margin: '5px 30px' }}>No. of Passes: {this.state.passCount}</p>
+          </div>
+          <div className="theory-section">
           <h3>{this.state.method}</h3>
           <p>{this.getAlgorithmTheory()}</p>
+        </div>
         </div>
       </>
     );
